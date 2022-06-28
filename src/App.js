@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import Balance from './assets/balance'
+import AsideMenu from './assets/asidemenu.js'
+import * as React from 'react';
+import { Grid } from '@mui/material';
+import CustomizedTables from './assets/table'
 
-function App() {
+function App() {  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='body'>
+      <AsideMenu/>
+
+      <Grid container spacing={2} className='header'>
+        <Grid item >
+          <h1>Crédito</h1>
+        </Grid>
+        <Grid item >
+          <Balance/>
+        </Grid>
+          <Grid container spacing={0} className='log'>
+            <Grid item sm >
+              <CustomizedTables />
+            </Grid>
+        </Grid>
+      </Grid>
+
     </div>
   );
 }
