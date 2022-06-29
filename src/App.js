@@ -17,7 +17,7 @@ function App() {
         <Grid item >
           <Balance/>
         </Grid>
-          <Grid container spacing={0} className='log'>
+          <Grid container spacing={0}>
             <Grid item sm >
               <CustomizedTables />
             </Grid>

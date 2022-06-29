@@ -45,7 +45,7 @@ function createData(
   value: string,
   dateSolicitation: string,
   deadlinePayment: string,
-  paymentForm: String,
+  paymentForm: string,
   status: string,
 ) {
   return {id, destiny, value, dateSolicitation, deadlinePayment, paymentForm, status};
@@ -66,7 +66,7 @@ export default function CustomizedTables() {
             <Input id="searchDate" type="search" placeholder="Pesquisar Data" variant="standard" endAdornment={ <InputAdornment position="end"> <CalendarMonthIcon /> </InputAdornment> }/>
         </div>
         <div style={{padding:'1rem'}}>
-          <Button variant="contained" disableElevation onClick={this.showModal}> 
+          <Button variant="contained" disableElevation> 
           Adicionar Saldo
           </Button>
         </div>
