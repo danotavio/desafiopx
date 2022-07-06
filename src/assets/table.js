@@ -18,9 +18,22 @@ import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import MenuItem from '@mui/material/MenuItem';
+import PixCode from '../images/pixcodepx.png'
 
-
-
+const paymentMethods = [ 
+  {
+    value: 'PIX/TED',
+  },
+  {
+    value: 'Boleto',
+  },
+];
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: 'white',
@@ -55,20 +68,114 @@ const rows = [
   createData(4145, 'Despesa', 'R$50,00', '28/02/2022 23:30', 'PIX/TED','28/02/2022','Em Pagamento'),
 ];
 
-
-
 export default function CustomizedTables() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setDialogAdvance(false);
+  };
+
+  const [paymentType, setPaymentType] = React.useState('');
+
+  const handleChange = (event) => {
+    setPaymentType(event.target.value);
+  }
+
+  const [dialogAdvance, setDialogAdvance] = React.useState(false);
+
+  const changeModal = () => {
+    setDialogAdvance(true);
+  }
   return (
     <TableContainer component={Paper} sx={{ borderRadius:'1rem' }}>
+<Dialog open={open} onClose={handleClose} >
+
+<DialogTitle>Adicionar Crédito</DialogTitle>
+
+<DialogContent>
+  <TextField 
+    autoFocus 
+    margin="dense" 
+    id="outlined-select-currency" 
+    label="Método de pagamento" 
+    value={paymentType} 
+    onChange={handleChange} 
+    fullWidth 
+    select 
+    variant="standard">
+
+    {paymentMethods.map((option) => (
+      <MenuItem key={option.value} value={option.value}>
+        {option.value}
+      </MenuItem>
+      ))}
+
+  </TextField>
+</DialogContent>
+
+<DialogContent>
+
+<TextField 
+  autoFocus 
+  margin="dense" 
+  id="paymentValue" 
+  label="Digite o valor" 
+  type="numberformat" 
+  fullWidth 
+  variant="standard" 
+  InputProps={{
+    startAdornment: 
+      <InputAdornment position="start">
+        $
+      </InputAdornment>}
+    }
+/>
+
+</DialogContent >
+    
+<DialogActions>
+  <Button onClick={handleClose}  style={{color:'#FF7E2E'}}>Voltar</Button>
+  <Button variant='contained' onClick={changeModal}  style={{background:'#FF7E2E'}}>Gerar QRCODE</Button>
+</DialogActions>
+
+</Dialog>
+
+<Dialog open={dialogAdvance} onClose={handleClose}>
+<DialogContent style={{display: 'flex', justifyContent: 'center'}}>
+<img src={PixCode} />
+</DialogContent>
+  <DialogContent>
+      <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', background: '#EEEEEE', padding: '1rem'}}>
+          Lorem ipsum dolor sit amet, 
+          consectetur adipiscing elit. 
+          Tristique potenti bibendum Lorem ipsum dolor
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center', padding: '1rem',  background: '#FF7E2E'}}>
+          <IconButton style={{color: 'white'}} aria-label="Copy">
+            <ContentCopyIcon />
+          </IconButton>
+        </div>
+      </div>
+
+
+</DialogContent>
+<DialogActions>
+<Button variant='text' onClick={handleClose} style={{color:'#FF7E2E'}}>Fechar</Button>
+</DialogActions>
+</Dialog>
     <Box sx={{ display: 'flex', gap:'2rem', alignItems:'center',justifyContent:'space-between', padding: '1rem'}}>
         <div style={{display:'flex', alignItems:'center',justifyContent:'center', gap:'3rem'}}>
             <Input id="allSearch" type="search" placeholder="Pesquisar Data" variant="filled" endAdornment={ <InputAdornment position="end"> <SearchIcon /> </InputAdornment> } />       
             <Input id="searchDate" type="search" placeholder="Pesquisar Data" variant="standard" endAdornment={ <InputAdornment position="end"> <CalendarMonthIcon /> </InputAdornment> }/>
         </div>
         <div style={{padding:'1rem'}}>
-          <Button variant="contained" disableElevation> 
-          Adicionar Saldo
-          </Button>
+        <Button style={{background:'#FF7E2E'}} variant="contained" onClick={handleClickOpen}> Adicionar Saldo </Button>
         </div>
       </Box>
       
@@ -96,7 +203,7 @@ export default function CustomizedTables() {
                 <StyledTableCell align="left">{row.deadlinePayment}</StyledTableCell>
                 <StyledTableCell align="left">{row.paymentForm}</StyledTableCell>
                 <StyledTableCell align="left">
-                    <Chip label={row.status} color="info" />
+                    <Chip label={row.status} color='info' />
                 </StyledTableCell>
                 <StyledTableCell align="left"> 
                     <IconButton color="primary" aria-label="Copy">
