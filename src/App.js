@@ -3,20 +3,13 @@ import './App.css';
 import Balance from './assets/balance';
 import AsideMenu from './assets/asidemenu.js';
 import { DialogContentText, Grid } from '@mui/material';
-import CustomizedTables from './assets/table';
-
-
-
+import EnhancedTable from './assets/tabletwo';
 
 function App() {  
-
-  
+ 
   return (
     <div className='body'>
       <AsideMenu/>
-      
-      
-
       <Grid container spacing={2} className='header'>
 
         <Grid item >
@@ -29,9 +22,7 @@ function App() {
 
         <Grid container spacing={0}>
           <Grid item sm >
-            <CustomizedTables>
-            
-            </CustomizedTables>
+            <EnhancedTable />
           </Grid>
         </Grid>
       
